@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add New User</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+        }
+
+        .header {
+            background: #1e3a8a;
+            color: white;
+            padding: 22px 35px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 650px;
+            margin: 40px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #1e3a8a;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #1e3a8a;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        button,
+        .back-button {
+            flex: 1;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        button {
+            background: #1e3a8a;
+            color: white;
+        }
+
+        button:hover {
+            background: #162d6b;
+        }
+
+        .back-button {
+            background: #e5e7eb;
+            color: #333;
+        }
+
+        .back-button:hover {
+            background: #d1d5db;
+        }
+
+        #message {
+            display: none;
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Pharmacy Management System</h1>
+    </div>
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Add New User</h2>
+
+            <form id="employeeForm">
+
+                <div class="form-group">
+
+                    <label for="employee_name">
+                        Employee Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="employee_name"
+                        name="employee_name"
+                        placeholder="Enter employee name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter username"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter password"
+                        minlength="6"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="role">
+                        User Role
+                    </label>
+
+                    <select id="role" name="role">
+
+                        <option value="Employee">
+                            Employee
+                        </option>
+
+                        <option value="Pharmacist">
+                            Pharmacist
+                        </option>
+
+                        <option value="Manager">
+                            Manager
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="buttons">
+
+                    <a
+                        href="{{ url_for('home') }}"
+                        class="back-button"
+                    >
+                        ← Back
+                    </a>
+
+                    <button type="submit">
+                        Create User
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <div id="message"></div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        document
+            .getElementById("employeeForm")
+            .addEventListener("submit", async function(event) {
+
+                event.preventDefault();
+
+                const form = event.target;
+
+                const data = {
+
+                    employee_name:
+                        document.getElementById(
+                            "employee_name"
+                        ).value.trim(),
+
+                    username:
+                        document.getElementById(
+                            "username"
+                        ).value.trim(),
+
+                    password:
+                        document.getElementById(
+                            "password"
+                        ).value,
+
+                    role:
+                        document.getElementById(
+                            "role"
+                        ).value
+                };
+
+
+                const message =
+                    document.getElementById("message");
+
+
+                try {
+
+                    const response = await fetch(
+                        "{{ url_for('add_employee') }}",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify(data)
+                        }
+                    );
+
+
+                    const result =
+                        await response.json();
+
+
+                    message.style.display = "block";
+
+
+                    if (result.success) {
+
+                        message.className =
+                            "success";
+
+                        message.innerHTML =
+                            "✓ " +
+                            result.message +
+                            "<br><br>" +
+                            "Employee ID: " +
+                            result.employee_id;
+
+                        form.reset();
+
+                    } else {
+
+                        message.className =
+                            "error";
+
+                        message.textContent =
+                            result.message;
+                    }
+
+
+                } catch (error) {
+
+                    message.style.display =
+                        "block";
+
+                    message.className =
+                        "error";
+
+                    message.textContent =
+                        "Something went wrong. Please try again.";
+
+                    console.error(error);
+
+                }
+
+            });
+
+    </script>
+
+</body>
+
+</html>

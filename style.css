@@ -1,0 +1,321 @@
+/* =========================================
+   PHARMACY DASHBOARD
+   ========================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f6fa;
+    color: #17212b;
+    min-height: 100vh;
+}
+
+
+/* =========================================
+   MAIN CONTAINER
+   ========================================= */
+
+.dashboard-container {
+    width: 100%;
+    min-height: 100vh;
+}
+
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.dashboard-header {
+    background: #12304a;
+    color: white;
+
+    padding: 22px 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 4px solid #2c6e9e;
+}
+
+.dashboard-header h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.dashboard-header p {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
+.btn {
+    display: inline-block;
+
+    text-decoration: none;
+
+    background: white;
+    color: #12304a;
+
+    padding: 10px 16px;
+
+    border-radius: 7px;
+
+    font-weight: bold;
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background: #e8f1f8;
+    transform: translateY(-1px);
+}
+
+.logout-btn {
+    background: #c0392b;
+    color: white;
+}
+
+.logout-btn:hover {
+    background: #a93226;
+}
+
+
+/* =========================================
+   USER INFORMATION
+   ========================================= */
+
+.user-info {
+    padding: 25px 35px 10px;
+}
+
+.info-card {
+    background: white;
+
+    border-radius: 10px;
+
+    padding: 20px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    border-left: 5px solid #2c6e9e;
+}
+
+.info-card h3 {
+    margin-bottom: 12px;
+    color: #12304a;
+}
+
+.info-card p {
+    margin: 6px 0;
+    font-size: 14px;
+}
+
+
+/* =========================================
+   SECTIONS
+   ========================================= */
+
+.dashboard-section {
+    padding: 20px 35px;
+}
+
+.dashboard-section h2 {
+    color: #12304a;
+
+    font-size: 22px;
+
+    margin-bottom: 18px;
+
+    border-bottom: 2px solid #d8e1e8;
+
+    padding-bottom: 10px;
+}
+
+
+/* =========================================
+   DASHBOARD GRID
+   ========================================= */
+
+.dashboard-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 20px;
+}
+
+
+/* =========================================
+   DASHBOARD CARDS
+   ========================================= */
+
+.dashboard-card {
+    display: block;
+
+    text-decoration: none;
+
+    background: white;
+
+    color: #17212b;
+
+    min-height: 180px;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    border: 1px solid #dce4ea;
+
+    box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s,
+        border-color 0.2s;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.13);
+
+    border-color: #2c6e9e;
+}
+
+.dashboard-card h3 {
+    color: #12304a;
+
+    font-size: 19px;
+
+    margin: 12px 0 8px;
+}
+
+.dashboard-card p {
+    color: #65727d;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   CARD ICON
+   ========================================= */
+
+.card-icon {
+    font-size: 34px;
+
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #edf5fa;
+
+    border-radius: 10px;
+}
+
+
+/* =========================================
+   MANAGER SECTION
+   ========================================= */
+
+.manager-section {
+    margin-top: 5px;
+}
+
+.manager-card {
+    border-left: 5px solid #7b4bb7;
+}
+
+.manager-card:hover {
+    border-color: #7b4bb7;
+}
+
+.manager-card .card-icon {
+    background: #f2ebf9;
+}
+
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+.dashboard-footer {
+    margin-top: 25px;
+
+    padding: 20px 35px;
+
+    background: #12304a;
+
+    color: white;
+
+    text-align: center;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    .dashboard-header {
+        padding: 18px;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+    .dashboard-header h1 {
+        font-size: 23px;
+    }
+
+    .header-actions {
+        width: 100%;
+    }
+
+    .btn {
+        flex: 1;
+        text-align: center;
+    }
+
+    .user-info,
+    .dashboard-section {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+}

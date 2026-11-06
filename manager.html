@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manager Dashboard - PharmaSafe</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #172b4d;
+        }
+
+        .header {
+            background: #123456;
+            color: white;
+            padding: 22px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .header p {
+            margin: 6px 0 0;
+            opacity: 0.8;
+        }
+
+        .logout {
+            background: #e53935;
+            color: white;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .welcome {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+
+        .welcome h2 {
+            margin-top: 0;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        .button {
+            display: inline-block;
+            background: #1976d2;
+            color: white;
+            text-decoration: none;
+            padding: 11px 18px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background: #125ca1;
+        }
+
+        .green {
+            background: #159957;
+        }
+
+        .green:hover {
+            background: #107743;
+        }
+
+        .users-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 13px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #f0f4f8;
+        }
+
+        .role-manager {
+            color: #7b1fa2;
+            font-weight: bold;
+        }
+
+        .role-employee {
+            color: #1976d2;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .header {
+                padding: 18px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .container {
+                width: 95%;
+            }
+
+            table {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+
+    <div>
+        <h1>PharmaSafe</h1>
+        <p>Pharmacy Management System</p>
+    </div>
+
+    <a href="{{ url_for('logout') }}" class="logout">
+        Logout
+    </a>
+
+</div>
+
+
+<div class="container">
+
+    <div class="welcome">
+
+        <h2>Manager Dashboard</h2>
+
+        <p>
+            Welcome, <strong>{{ session.get('full_name', session.get('username', 'Manager')) }}</strong>.
+        </p>
+
+        <p>
+            You have manager access to the pharmacy management system.
+        </p>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>👨‍⚕️ Pharmacy</h3>
+
+            <p>
+                Use the normal pharmacy system to enter patients,
+                select medicines and generate bills.
+            </p>
+
+            <a href="{{ url_for('home') }}" class="button">
+                Open Pharmacy
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>👥 Manage Users</h3>
+
+            <p>
+                Add and manage pharmacy employees and their roles.
+            </p>
+
+            <a href="{{ url_for('add_employee') }}" class="button green">
+                Add New User
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>📋 Bill History</h3>
+
+            <p>
+                View bills created by employees and managers.
+            </p>
+
+            <a href="#" class="button">
+                View Bill History
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>🔐 Account</h3>
+
+            <p>
+                Change your password and manage your account.
+            </p>
+
+            <a href="#" class="button">
+                Account Settings
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="users-section">
+
+        <h2>Registered Users</h2>
+
+        <p>
+            The users registered in the pharmacy system are shown below.
+        </p>
+
+
+        {% if employees %}
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+            {% for employee in employees %}
+
+                <tr>
+
+                    <td>
+                        {{ employee['employee_id'] }}
+                    </td>
+
+                    <td>
+                        {{ employee['full_name'] }}
+                    </td>
+
+                    <td>
+                        {{ employee['username'] }}
+                    </td>
+
+                    <td>
+
+                        {% if employee['role'] == 'manager' %}
+
+                            <span class="role-manager">
+                                Manager
+                            </span>
+
+                        {% else %}
+
+                            <span class="role-employee">
+                                Employee
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+            <p>
+                No users found.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Bill History</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .header {
+            background: #12395b;
+            color: white;
+            padding: 20px 30px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .header p {
+            margin: 6px 0 0;
+            font-size: 14px;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1400px;
+            margin: 30px auto;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .top-bar h2 {
+            margin: 0;
+            color: #12395b;
+        }
+
+        .back-button {
+            text-decoration: none;
+            background: #12395b;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .back-button:hover {
+            background: #0d2b45;
+        }
+
+        .history-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 950px;
+        }
+
+        th {
+            background: #12395b;
+            color: white;
+            padding: 13px 12px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 13px 12px;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .bill-number {
+            font-weight: bold;
+            color: #1261a0;
+        }
+
+        .employee-name {
+            font-weight: bold;
+            color: #263b50;
+        }
+
+        .medicines {
+            white-space: pre-wrap;
+            word-break: break-word;
+            max-width: 350px;
+            line-height: 1.5;
+        }
+
+        .amount {
+            font-weight: bold;
+            color: #087443;
+            white-space: nowrap;
+        }
+
+        .date {
+            white-space: nowrap;
+        }
+
+        .time {
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .no-bills {
+            text-align: center;
+            padding: 40px;
+            color: #6b7280;
+            font-size: 16px;
+        }
+
+        .bill-count {
+            margin-bottom: 15px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        @media (max-width: 700px) {
+
+            .container {
+                width: 97%;
+                margin: 15px auto;
+            }
+
+            .header {
+                padding: 16px;
+            }
+
+            .history-card {
+                padding: 10px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ======================================================
+     HEADER
+====================================================== -->
+
+<div class="header">
+
+    <h1>
+        Pharmacy Management System
+    </h1>
+
+    <p>
+        Employee Bill History
+    </p>
+
+</div>
+
+
+<!-- ======================================================
+     MAIN CONTAINER
+====================================================== -->
+
+<div class="container">
+
+
+    <!-- TOP BAR -->
+
+    <div class="top-bar">
+
+        <h2>
+            Bill History
+        </h2>
+
+        <a href="{{ url_for('index') }}"
+           class="back-button">
+
+            ← Back to Dashboard
+
+        </a>
+
+    </div>
+
+
+    <!-- BILL COUNT -->
+
+    <div class="bill-count">
+
+        Total Bills:
+        <strong>{{ bills|length }}</strong>
+
+    </div>
+
+
+    <!-- ==================================================
+         BILL TABLE
+    =================================================== -->
+
+    <div class="history-card">
+
+
+        {% if bills %}
+
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Employee Name
+                    </th>
+
+                    <th>
+                        Bill Number
+                    </th>
+
+                    <th>
+                        Medicines
+                    </th>
+
+                    <th>
+                        Total Amount
+                    </th>
+
+                    <th>
+                        Date
+                    </th>
+
+                    <th>
+                        Exact Time
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+            {% for bill in bills %}
+
+
+                <tr>
+
+
+                    <!-- EMPLOYEE NAME -->
+
+                    <td>
+
+                        <span class="employee-name">
+
+                            {{ bill["created_by_name"] or "Unknown" }}
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- BILL NUMBER -->
+
+                    <td>
+
+                        <span class="bill-number">
+
+                            {{ bill["bill_number"] or "N/A" }}
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- MEDICINES -->
+
+                    <td>
+
+                        <div class="medicines">
+
+                            {{ bill["medicines"] or "No medicines recorded" }}
+
+                        </div>
+
+                    </td>
+
+
+                    <!-- TOTAL AMOUNT -->
+
+                    <td>
+
+                        <span class="amount">
+
+                            ₹{{ "%.2f"|format(bill["total_amount"] or 0) }}
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- DATE -->
+
+                    <td>
+
+                        <span class="date">
+
+                            {% if bill["created_at"] %}
+
+                                {{ bill["created_at"][:10] }}
+
+                            {% else %}
+
+                                N/A
+
+                            {% endif %}
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- EXACT TIME -->
+
+                    <td>
+
+                        <span class="time">
+
+                            {% if bill["created_at"] %}
+
+                                {{ bill["created_at"][11:] }}
+
+                            {% else %}
+
+                                N/A
+
+                            {% endif %}
+
+                        </span>
+
+                    </td>
+
+
+                </tr>
+
+
+            {% endfor %}
+
+
+            </tbody>
+
+        </table>
+
+
+        {% else %}
+
+
+        <div class="no-bills">
+
+            No bills have been entered yet.
+
+        </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,339 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+
+    min-height: 100vh;
+
+    background: #f1f3f4;
+}
+
+
+.login-page {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    width: 100%;
+}
+
+
+/* =================================
+   LEFT LOGIN SECTION
+================================= */
+
+.login-section {
+
+    width: 55%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: #f1f3f4;
+
+    padding: 40px;
+}
+
+
+.login-content {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    text-align: center;
+}
+
+
+/* Logo / title */
+
+.login-content h1 {
+
+    font-size: 38px;
+
+    letter-spacing: 2px;
+
+    color: #10395c;
+
+    margin-bottom: 5px;
+
+    font-weight: 700;
+}
+
+
+.system-title {
+
+    font-size: 15px;
+
+    color: #667085;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 45px;
+}
+
+
+/* Login heading */
+
+.login-content h2 {
+
+    font-size: 24px;
+
+    font-weight: 400;
+
+    color: #344054;
+
+    margin-bottom: 10px;
+}
+
+
+.login-description {
+
+    color: #667085;
+
+    font-size: 14px;
+
+    margin-bottom: 45px;
+}
+
+
+/* =================================
+   INPUTS
+================================= */
+
+.input-group {
+
+    text-align: left;
+
+    margin-bottom: 35px;
+}
+
+
+.input-group label {
+
+    display: block;
+
+    color: #344054;
+
+    font-size: 14px;
+
+    margin-bottom: 8px;
+}
+
+
+.input-group input {
+
+    width: 100%;
+
+    border: none;
+
+    border-bottom: 1px solid #667085;
+
+    background: transparent;
+
+    padding: 10px 5px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    color: #101828;
+}
+
+
+.input-group input:focus {
+
+    border-bottom: 2px solid #0879d1;
+}
+
+
+.input-group input::placeholder {
+
+    color: #98a2b3;
+}
+
+
+/* =================================
+   LOGIN BUTTON
+================================= */
+
+.login-button {
+
+    width: 100%;
+
+    border: none;
+
+    border-radius: 4px;
+
+    background: #0879d1;
+
+    color: white;
+
+    padding: 13px;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.login-button:hover {
+
+    background: #0668b5;
+
+    transform: translateY(-1px);
+}
+
+
+/* =================================
+   FORGOT PASSWORD
+================================= */
+
+.forgot-password {
+
+    margin-top: 18px;
+
+    font-size: 14px;
+
+    color: #667085;
+}
+
+
+.forgot-password a {
+
+    color: #0879d1;
+
+    text-decoration: none;
+
+    font-weight: 500;
+}
+
+
+.forgot-password a:hover {
+
+    text-decoration: underline;
+}
+
+
+/* =================================
+   FOOTER
+================================= */
+
+.login-footer {
+
+    margin-top: 45px;
+
+    color: #98a2b3;
+
+    font-size: 12px;
+}
+
+
+/* =================================
+   RIGHT IMAGE SECTION
+================================= */
+
+.image-section {
+
+    width: 45%;
+
+    min-height: 100vh;
+
+    background-image:
+
+        linear-gradient(
+            rgba(255,255,255,0.15),
+            rgba(255,255,255,0.15)
+        ),
+
+        url("https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&w=1200&q=80");
+
+    background-size: cover;
+
+    background-position: center;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: center;
+
+    padding: 50px;
+}
+
+
+.image-overlay {
+
+    background: rgba(16, 57, 92, 0.85);
+
+    color: white;
+
+    padding: 25px 35px;
+
+    border-radius: 10px;
+
+    text-align: center;
+
+    width: 100%;
+
+    max-width: 400px;
+}
+
+
+.image-overlay h2 {
+
+    font-size: 24px;
+
+    margin-bottom: 8px;
+}
+
+
+.image-overlay p {
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* =================================
+   MOBILE
+================================= */
+
+@media (max-width: 850px) {
+
+    .login-page {
+
+        display: block;
+    }
+
+
+    .login-section {
+
+        width: 100%;
+
+        min-height: 100vh;
+
+        padding: 30px 20px;
+    }
+
+
+    .image-section {
+
+        display: none;
+    }
+
+}

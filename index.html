@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pharmacy Management System</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+<header class="dashboard-header">
+
+    <div class="header-left">
+        <h1>Pharmacy Management System</h1>
+        <p>Dashboard</p>
+    </div>
+
+    <div class="header-right">
+        <span class="welcome-text">
+            Welcome, {{ session.get('name', session.get('username', 'User')) }}
+        </span>
+
+        <a href="/change-password" class="header-btn">
+            Change Password
+        </a>
+
+        <a href="/logout" class="logout-btn">
+            Logout
+        </a>
+    </div>
+
+</header>
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+<main class="dashboard-container">
+
+    <!-- USER INFORMATION -->
+    <section class="user-info">
+
+        <div>
+            <strong>Name:</strong>
+            {{ session.get('name', session.get('username', 'User')) }}
+        </div>
+
+        <div>
+            <strong>Username:</strong>
+            {{ session.get('username', '') }}
+        </div>
+
+        <div>
+            <strong>Role:</strong>
+            {{ session.get('role', 'Employee') }}
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         MAIN FEATURES
+    ========================= -->
+    <section class="dashboard-section">
+
+        <h2>Pharmacy Operations</h2>
+
+        <div class="dashboard-grid">
+
+            <!-- PRESCRIPTION + BILLING -->
+            <a href="/prescription-billing" class="dashboard-card">
+
+                <div class="card-icon">
+                    💊
+                </div>
+
+                <div class="card-content">
+                    <h3>Prescription & Billing</h3>
+
+                    <p>
+                        Create a prescription, select medicines,
+                        check drug interactions and generate the bill
+                        in one operation.
+                    </p>
+                </div>
+
+            </a>
+
+
+            <!-- BILL HISTORY -->
+            <a href="/bill-history" class="dashboard-card">
+
+                <div class="card-icon">
+                    📋
+                </div>
+
+                <div class="card-content">
+                    <h3>Bill History</h3>
+
+                    <p>
+                        View previous bills with employee name,
+                        bill number, medicines, amount, date and time.
+                    </p>
+                </div>
+
+            </a>
+
+
+            <!-- MY BILLS -->
+            <a href="/my-bills" class="dashboard-card">
+
+                <div class="card-icon">
+                    🧾
+                </div>
+
+                <div class="card-content">
+                    <h3>My Bills</h3>
+
+                    <p>
+                        View the bills created by your account.
+                    </p>
+                </div>
+
+            </a>
+
+
+            <!-- CHANGE PASSWORD -->
+            <a href="/change-password" class="dashboard-card">
+
+                <div class="card-icon">
+                    🔐
+                </div>
+
+                <div class="card-content">
+                    <h3>Change Password</h3>
+
+                    <p>
+                        Change your account password securely.
+                    </p>
+                </div>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         MANAGER SECTION
+    ========================= -->
+
+    {% if session.get('role') == 'Manager' %}
+
+    <section class="dashboard-section manager-section">
+
+        <h2>Manager Administration</h2>
+
+        <div class="dashboard-grid">
+
+            <!-- ADD EMPLOYEE -->
+            <a href="/add-employee" class="dashboard-card manager-card">
+
+                <div class="card-icon">
+                    👤
+                </div>
+
+                <div class="card-content">
+                    <h3>Add Employee</h3>
+
+                    <p>
+                        Create a new Employee, Pharmacist or Manager account.
+                    </p>
+                </div>
+
+            </a>
+
+
+            <!-- ADD USER -->
+            <a href="/add-user" class="dashboard-card manager-card">
+
+                <div class="card-icon">
+                    ➕
+                </div>
+
+                <div class="card-content">
+                    <h3>Add User</h3>
+
+                    <p>
+                        Add a new user to the pharmacy system.
+                    </p>
+                </div>
+
+            </a>
+
+
+            <!-- EMPLOYEE MANAGEMENT -->
+            <a href="/employees" class="dashboard-card manager-card">
+
+                <div class="card-icon">
+                    👥
+                </div>
+
+                <div class="card-content">
+                    <h3>Employee Management</h3>
+
+                    <p>
+                        View and manage pharmacy employees and users.
+                    </p>
+                </div>
+
+            </a>
+
+
+            <!-- ALL BILL HISTORY -->
+            <a href="/bill-history" class="dashboard-card manager-card">
+
+                <div class="card-icon">
+                    📊
+                </div>
+
+                <div class="card-content">
+                    <h3>All Bill History</h3>
+
+                    <p>
+                        View bills created by all employees and pharmacists.
+                    </p>
+                </div>
+
+            </a>
+
+        </div>
+
+    </section>
+
+    {% endif %}
+
+
+    <!-- =========================
+         QUICK INFORMATION
+    ========================= -->
+
+    <section class="dashboard-section">
+
+        <h2>System Information</h2>
+
+        <div class="info-box">
+
+            <p>
+                <strong>Prescription & Billing:</strong>
+                Create prescriptions and generate bills as one combined operation.
+            </p>
+
+            <p>
+                <strong>Drug Interaction Check:</strong>
+                Selected medicines can be checked for recorded interactions
+                before billing.
+            </p>
+
+            <p>
+                <strong>Bill History:</strong>
+                Bills contain employee name, bill number, medicines,
+                total amount, date and exact time.
+            </p>
+
+            {% if session.get('role') == 'Manager' %}
+            <p>
+                <strong>Manager Access:</strong>
+                You can manage users and view the complete bill history.
+            </p>
+            {% endif %}
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="dashboard-footer">
+
+    <p>
+        Pharmacy Management System
+    </p>
+
+</footer>
+
+</body>
+</html>
